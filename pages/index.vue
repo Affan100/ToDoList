@@ -1,38 +1,42 @@
 <template>
 <!-- <Tutorial /> -->
-<div class="container">
+<div class="container p-2">
     <div class="d-flex flex-row justify-content mx-auto">
         <div class="col-md-8">
             <form @submit.prevent="sub">
                 <div class="text-center">
-                    <h1>TO DO LIST</h1>
-                    <input v-model="todo" type="text" placeholder="Add a Todo" class="form-control" />
-                    <button type="submit">Add tesk</button>
+                    <h1 class="text-3xl">TO DO LIST</h1>
+                    <div class="mb-3 mt-3">
+                        <input v-model="todo" type="text" placeholder="Add a Todo" class="rounded form-control bg-gray-200 mt-2 p-1" />
+                        <button type="submit" class="rounded bg-blue-500 text-white text-xl p-1">Add tesk</button>
+                    </div>
                 </div>
             </form>
+            <div class="flex justify-center">
+                <div class="flex flex-col w-1/2 justify-center  shadow-md bg-blue-50">
+                    <div v-for="(todos, index) in todolist" :key="index">
+                        <!-- {{ todos.isEdit }} -->
+                        <input v-if="todos.isEdit" v-model="update" type="text" class="bg-blue-50 w-3/4"/>
+                        <label v-else class="w-3/4">{{ todos.tesk }}</label>
+                        <button class="ml-5" @click="editTodo(index, update, todos.isEdit)">Edit</button>
+                        <button class="ml-2" @click="removeTodo(index)">Delete</button>
+                        
+                        
+                        
+                        
+                        <!-- Check Function -->
+                        <!-- <div v-if="!todos.isChack">
+                        <div @click="chackTodo(taskindex)">
+                            <i class="fas fa-check">
 
-            <div class="flex text-center flex-col w-full">
-                <div v-for="(todos, index) in todolist" :key="index">
-                    <!-- {{ todos.isEdit }} -->
-
-                    <div v-if="todos.isEdit">
-                        <input v-model="update" type="text" />
+                            </i>
+                        </div>
+                    </div> -->
+                        <!-- <button class="ml-5" @click="chackTodo(taskindex, chack)">Check</button> -->
                     </div>
-
-                    <div v-else>
-                        <label>{{ todos.tesk }}</label>
-                    </div>
-
-                    <!-- Check Function -->
-                    <!-- <div v-if="!todos.isChack">
-                            <div @click="chackTodo(index)">
-                                <i class="fas fa-check"></i>
-                            </div>
-                        </div> -->
-                    <button class="ml-5" @click="editTodo(index, update, todos.isEdit)">Edit</button>
-                    <button class="ml-2" @click="removeTodo(index)">Delete</button>
                 </div>
             </div>
+
         </div>
     </div>
 </div>
@@ -70,6 +74,7 @@ export default {
         },
         removeTodo(index) {
             this.$store.commit('todolist/removeTodo', index)
+            alert("Delete Successfully")
         },
 
         chackTodo(taskindex, todo, chack) {

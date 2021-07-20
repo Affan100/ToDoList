@@ -20,7 +20,7 @@ export const mutations = {
     addTodo(state, payload) {
         const result = { isEdit: false, tesk: payload }
         state.todos.push(result)
-
+        alert("Add Task complete")
     },
 
     removeTodo(state, payload) {
