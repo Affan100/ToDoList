@@ -16,21 +16,25 @@ export const mutations = {
         state.todos.splice(payload, '1');
     },
 
-    editTodo(state, payload) {
+    editedTodo(state, payload) {
         const editToDoList = state.todos.map((thing, index) => {
             if (index === payload) {
                 return (thing = {
-                    is_edited: !thing.is_edited
+                    content: thing.content,
+                    is_edited: !thing.is_edited,
+                    is_checked: thing.is_checked,
+                    task_id: thing.task_id,
                 })
             } else {
-                return thing
+                return (thing = {
+                    content: thing.content,
+                    is_checked: thing.is_checked,
+                    task_id: thing.task_id,
+                    is_edited: false
+                })
             }
         });
         state.todos = editToDoList;
-    },
-
-    chackTodo(state, payload) {
-        state.todos = payload
     },
 
     setTaskFromAPI(state, data) {
@@ -62,7 +66,7 @@ export const actions = {
     },
 
     setToDoListFromAPI(state, data) {
-        const newtodo = data.newTodos;
+        const newtodo = data.newTodosFormAPI;
         const newTodo = newtodo.map(thing => {
             return (thing = {
                 content: thing.content,
