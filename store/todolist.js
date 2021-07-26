@@ -82,8 +82,8 @@ export const actions = {
                     "Content-Type": "application/json",
                     Authorization: `Bearer aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa`
                 }
-            }).then(res => {
-                // alert("Add Task Complete")
+            }).then(res => {}).catch((error) => {
+                alert("Add or Update Not Complete" + error)
             })
     },
     async deleteToDoListFromAPI(state, payload) {

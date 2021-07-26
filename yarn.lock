@@ -9201,6 +9201,11 @@ vary@^1.1.2, vary@~1.1.2:
   resolved "https://registry.npmjs.org/vary/-/vary-1.1.2.tgz"
   integrity sha1-IpnwLG3tMNSllhsLn3RSShj2NPw=
 
+vee-validate@^4.4.7:
+  version "4.4.7"
+  resolved "https://registry.yarnpkg.com/vee-validate/-/vee-validate-4.4.7.tgz#398522fde681d7b7d2a1a4d4d399d3bd43078826"
+  integrity sha512-Yb5sMWbR4iNMlKH6lb16wfKPEV8GewnynakF5GdLXVShXAT459qXjb98kd0xeUCmDE3KorJh9OywlrkDLkiYUg==
+
 vendors@^1.0.0:
   version "1.0.4"
   resolved "https://registry.npmjs.org/vendors/-/vendors-1.0.4.tgz"
