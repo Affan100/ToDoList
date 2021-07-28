@@ -208,6 +208,8 @@
 
 <script>
 export default {
+  layout: 'navbarLayout',
+  // middleware: "isAuth",
   data() {
     return {
       todo: '',
@@ -224,6 +226,7 @@ export default {
 
   async created() {
     await this.getTask()
+    await this.getUser()
   },
 
   methods: {
@@ -299,6 +302,9 @@ export default {
       this.update = ''
       this.$store.commit('todolist/editedTodo', index)
     },
+    getUser(){
+      this.$store.dispatch('login/getUserNameFromApi')
+    }
   },
 }
 </script>

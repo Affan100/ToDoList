@@ -1,24 +1,24 @@
 import Vue from 'vue'
-import * as VeeValidate from 'vee-validate'
+import { extend, ValidationObserver, ValidationProvider } from 'vee-validate'
 import * as rules from 'vee-validate/dist/rules'
 
-VeeValidate.extend("required", {
+extend("required", {
     ...rules.required,
-    message: "กรอกข้อมูลให้ครบถ้วน"
+    message: "Fill out the information completely."
 });
 
-VeeValidate.extend('email', rules.email);
+extend('email', rules.email);
 
-VeeValidate.extend('confirmed', {
+extend('confirmed', {
     ...rules.confirmed,
-    message: "Password does not match"
+    message: "Incorrect password"
 })
 
-VeeValidate.extend("alpha", {
+extend("alpha", {
     ...rules.alpha,
     message: "This field must only contain alphabetic characters"
 });
 
 // Export
-Vue.component('ValidationProvider', VeeValidate.ValidationProvider)
-Vue.component('ValidationObserver', VeeValidate.ValidationObserver)
+Vue.component('ValidationProvider', ValidationProvider)
+Vue.component('ValidationObserver', ValidationObserver)

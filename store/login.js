@@ -1,3 +1,6 @@
+// const accessToken = localStorage.getItem("accessToken");
+// console.log(accessToken)
+
 export const state = () => ({
     is_access: false,
     username: {
@@ -5,6 +8,7 @@ export const state = () => ({
         firstname: "",
         lastname: "",
     },
+    access_token: "",
 });
 
 export const mutations = {
@@ -13,18 +17,57 @@ export const mutations = {
     },
     Set_UserName_From_API(state, data) {
         state.username = data;
-    }
+    },
+
+    SET_TOKEN(state, data) {
+        state.access_token = data;
+        console.log(data);
+    },
+
 };
 export const actions = {
-    loginApi(state, payload) {
-
+    async loginApi(state, payload) {
+        await this.$axios
+            .$post("/api/login", {
+                username: payload.username,
+                password: payload.password
+            }, { headers: { "Content-Type": "application/json" } })
+            .then(res => {
+                if (res) {
+                    // console.log(res.token)
+                    localStorage.setItem("accessToken", res.token);
+                    state.commit("Set_Access", true);
+                }
+            }).catch(error => {
+                console.log(error);
+                alert("username or password Incorrect");
+            });
     },
-    getUserNameFromApi(state, payload) {
+    setToken(state) {
+        const accessToken = localStorage.getItem("accessToken");
+        state.commit("SET_TOKEN", accessToken)
+    },
 
+    async getUserNameFromApi(state, payload) {
+        // const accessToken = localStorage.getItem("accessToken");
+        await this.$axios
+            .$get("/api/account", {
+                // headers: {
+                //     Authorization: `Bearer ${accessToken}`
+                // }
+            })
+            .then(res => {
+                state.commit("Set_UserName_From_API", res);
+                // console.log(res);
+            })
+            .catch(error => {
+                console.log(error);
+            });
     }
 };
 
 export const getters = {
+    gettersToken: state => state.access_token,
     gettersIsAccess: state => state.is_access,
     gettersUsername: state => state.username,
 }

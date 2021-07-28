@@ -1,5 +1,3 @@
-// const access_Token = localStorage.getItem("access_Token");
-
 export const state = () => ({
     todos: []
 })
