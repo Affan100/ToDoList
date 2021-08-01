@@ -55,13 +55,13 @@
         </div>
 
         <!-- Output List : Task -->
-        <div class="flex justify-center mt-9 w-full">
+        <div class="flex justify-center mt-9 w-full h-auto">
           <div class="w-1/2 justify-center overflow-y-auto scroll_h">
             <div
               v-for="(todos, index) in todolist"
               :key="index"
               class="
-                flex
+                grid grid-cols-3
                 mb-4
                 items-center
                 appearance-none
@@ -75,132 +75,138 @@
                 font-semibold
               "
             >
-              <input
-                v-if="todos.is_edited"
-                v-model="update"
-                type="text"
-                class="
-                  w-full
-                  p-2
-                  rounded-lg
-                  text-black
-                  focus:outline-none
-                  focus:ring
-                  focus:border-blue-300
-
-                "
-                :placeholder="todos.content"
-                @keypress.enter="editTodo(index)"
-              />
-              <div
-                v-else
-                class="w-full appearance-none"
-                @click="toggleCheck(index)"
-              >
-                <label :class="`${todos.is_checked ? 'line-through' : ''}`">{{
-                  todos.content
-                }}</label>
+              <div class="col-span-2">
+                <input
+                  v-if="todos.is_edited"
+                  v-model="update"
+                  type="text"
+                  class="
+                    w-full
+                    p-2
+                    rounded-lg
+                    text-black
+                    focus:outline-none
+                    focus:ring
+                    focus:border-blue-300
+                  "
+                  :placeholder="todos.content"
+                  @keypress.enter="editTodo(index)"
+                />
+                <div
+                  v-else
+                  class="w-full appearance-none"
+                  @click="toggleCheck(index)"
+                >
+                  <!-- ************** bug ************ -->
+                  <div
+                    :class="`${todos.is_checked ? 'line-through' : ''}`"
+                    class="whitetext"
+                  >
+                    {{ todos.content }}
+                  </div>
+                </div>
               </div>
+              <div class="flex justify-end col-span-1">
+                <div v-if="!todos.is_edited">
+                  <div v-if="!todos.is_checked">
+                    <button
+                      class="
+                        p-1
+                        border-2
+                        rounded-lg
+                        hover:text-white
+                        text-indigo-400
+                        border-indigo-400
+                        hover:bg-indigo-400
+                        transition
+                        duration-700
+                        ease-in-out
+                      "
+                      @click="toggleEdit(index)"
+                    >
+                      OpenEdit
+                    </button>
+                  </div>
+                </div>
 
-              <div v-if="!todos.is_edited">
-                <div v-if="!todos.is_checked">
+                <div v-else class="flex">
                   <button
                     class="
                       p-1
+                      ml-3
+                      border-2
+                      rounded-lg
+                      text-green-400
+                      border-green-400
+                      hover:text-white
+                      hover:bg-green-400
+                      transition
+                      duration-700
+                      ease-in-out
+                    "
+                    @click="editTodo(index)"
+                  >
+                    Edit
+                  </button>
+
+                  <button
+                    class="
+                      p-1
+                      ml-2
                       border-2
                       rounded-lg
                       hover:text-white
-                      text-indigo-400
-                      border-indigo-400
-                      hover:bg-indigo-400
+                      text-yellow-400
+                      border-yellow-400
+                      hover:bg-yellow-400
                       transition
-                      duration-700 ease-in-out
+                      duration-700
+                      ease-in-out
                     "
                     @click="toggleEdit(index)"
                   >
-                    OpenEdit
+                    Cancel
                   </button>
                 </div>
-              </div>
-
-              <div v-else class="flex">
-                <button
-                  class="
-                    p-1
-                    ml-3
-                    border-2
-                    rounded-lg
-                    text-green-400
-                    border-green-400
-                    hover:text-white
-                    hover:bg-green-400
-                    transition
-                    duration-700
-                    ease-in-out
-                  "
-                  @click="editTodo(index)"
-                >
-                  Edit
-                </button>
 
                 <button
                   class="
                     p-1
                     ml-2
-                    border-2
-                    rounded-lg
+                    scale-150
+                    rounded
+                    text-red-400
                     hover:text-white
-                    text-yellow-400
-                    border-yellow-400
-                    hover:bg-yellow-400
+                    border-red-400
+                    hover:bg-red-400
                     transition
+                    ease-in
                     duration-700
-                    ease-in-out
                   "
-                  @click="toggleEdit(index)"
+                  @click="removeTodo(todos.task_id)"
                 >
-                  Cancel
+                  <!-- Bin -->
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    class="h-6 w-6"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke="currentColor"
+                  >
+                    <path
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      stroke-width="2"
+                      d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"
+                    />
+                  </svg>
                 </button>
               </div>
-
-              <button
-                class="
-                  p-1
-                  ml-2
-                  scale-150
-                  rounded
-                  text-red-400
-                  hover:text-white
-                  border-red-400
-                  hover:bg-red-400
-                  transition
-                  ease-in
-                  duration-700
-                "
-                @click="removeTodo(todos.task_id)"
-              >
-                <!-- Bin -->
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  class="h-6 w-6"
-                  fill="none"
-                  viewBox="0 0 24 24"
-                  stroke="currentColor"
-                >
-                  <path
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                    stroke-width="2"
-                    d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"
-                  />
-                </svg>
-              </button>
             </div>
           </div>
         </div>
 
         <!-- template Popup -->
-      
       </div>
     </div>
   </div>
@@ -209,7 +215,7 @@
 <script>
 export default {
   layout: 'navbarLayout',
-  // middleware: "isAuth",
+  middleware: 'isAuth',
   data() {
     return {
       todo: '',
@@ -251,22 +257,23 @@ export default {
     },
 
     async removeTodo(taskindex) {
-      await this.$store.dispatch('todolist/deleteToDoListFromAPI', taskindex)
-      await this.getTask()
-      alert('Delete Successfully')
+      const conFirm = confirm('Are you sure to delete?')
+      if (conFirm === true) {
+        await this.$store.dispatch('todolist/deleteToDoListFromAPI', taskindex)
+        await this.getTask()
+        alert('Delete Successfully')
+      }
     },
 
     async toggleCheck(taskindex) {
       const checkTodo = this.todolist.map((thing, index) => {
         if (index === taskindex) {
-          if (!thing.is_checked) {
-            return (thing = {
-              content: thing.content,
-              is_edited: thing.is_edited,
-              is_checked: !thing.is_checked,
-              task_id: thing.task_id,
-            })
-          } else return thing
+          return (thing = {
+            content: thing.content,
+            is_edited: thing.is_edited,
+            is_checked: !thing.is_checked,
+            task_id: thing.task_id,
+          })
         } else {
           return thing
         }
@@ -302,9 +309,9 @@ export default {
       this.update = ''
       this.$store.commit('todolist/editedTodo', index)
     },
-    getUser(){
+    getUser() {
       this.$store.dispatch('login/getUserNameFromApi')
-    }
+    },
   },
 }
 </script>
@@ -319,7 +326,15 @@ h2 {
   color: rgba(209, 213, 219);
   font-weight: 400;
 }
-.scroll_h{
-    height: 50vh;
+.scroll_h {
+  height: 50vh;
+}
+.whitetext {
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  -o-text-overflow: ellipsis;
+  -ms-text-overflow: ellipsis;
+  overflow: hidden;
+  width: 550px;
 }
 </style>

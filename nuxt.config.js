@@ -1,4 +1,6 @@
 export default {
+    ssr: false,
+
     // Target: https://go.nuxtjs.dev/config-target
     target: 'static',
 
@@ -44,7 +46,8 @@ export default {
 
     // Axios module configuration: https://go.nuxtjs.dev/config-axios
     axios: {
-        baseURL: process.env.BASE_URL,
+        // baseURL: process.env.BASE_URL,
+
     },
 
     // Build Configuration: https://go.nuxtjs.dev/config-build

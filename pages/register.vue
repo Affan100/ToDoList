@@ -1,9 +1,9 @@
 <template>
   <div class="bg h-screen">
-    <div class="h-full flex justify-center items-center bg-white shadow">
-      <div class="w-1/2 bg-gray-700 rounded-lg">
+    <div class="h-full flex justify-center items-center bg-gray-700 shadow">
+      <div class="w-1/2 bg-white rounded-lg">
         <div class="flex justify-center py-8">
-          <h1 class="text-5xl text-gray-300 font-bold p-1">Register</h1>
+          <h1 class="text-5xl text-gray-700 font-bold p-5">Register</h1>
         </div>
         <!-- <input type="text" placeholder='Input Me'> -->
 
@@ -11,28 +11,17 @@
           <!-- Input firstname -->
           <ValidationProvider
             v-slot="{ errors }"
-            name="firstname"
+            name="firsname"
             rules="required"
           >
             <div class="flex justify-center mb-2">
               <input
-                id="firstname"
-                v-model="user.firstname"
+                id="firsname"
+                v-model="user.firsname"
                 type="text"
                 name=""
                 placeholder="Firstname"
-                class="
-                  w-10/12
-                  shadow
-                  border
-                  rounded
-                  text-white
-                  bg-gray-700
-                  p-2
-                  from-purple-300
-                  via-pink-300
-                  to-red-300
-                "
+                class="w-10/12 md-2 shadow px-5 p-2"
               />
             </div>
             <div
@@ -56,18 +45,7 @@
                 type="text"
                 name=""
                 placeholder="Lastname"
-                class="
-                  w-10/12
-                  shadow
-                  text-white
-                  border
-                  rounded
-                  bg-gray-700
-                  p-2
-                  from-purple-300
-                  via-pink-300
-                  to-red-300
-                "
+                class="w-10/12 md-2 shadow px-5 p-2"
               />
             </div>
             <div
@@ -89,18 +67,7 @@
                 v-model="user.username"
                 type="text"
                 placeholder="Username"
-                class="
-                  w-10/12
-                  shadow
-                  border
-                  text-white
-                  rounded
-                  bg-gray-700
-                  p-2
-                  from-purple-300
-                  via-pink-300
-                  to-red-300
-                "
+                class="w-10/12 md-2 shadow px-5 p-2"
               />
             </div>
             <div
@@ -119,18 +86,7 @@
                 name=""
                 type="password"
                 placeholder="Set your password"
-                class="
-                  w-10/12
-                  shadow
-                  border
-                  text-white
-                  rounded
-                  bg-gray-700
-                  p-2
-                  from-purple-300
-                  via-pink-300
-                  to-red-300
-                "
+                class="w-10/12 md-2 shadow px-5 p-2"
               />
             </div>
             <div
@@ -152,18 +108,7 @@
                 name=""
                 type="password"
                 placeholder="Confrim your password"
-                class="
-                  w-10/12
-                  shadow
-                  border
-                  rounded
-                  text-white
-                  bg-gray-700
-                  p-2
-                  from-purple-300
-                  via-pink-300
-                  to-red-300
-                "
+                class="w-10/12 md-2 shadow px-5 p-2"
               />
             </div>
             <div
@@ -199,8 +144,8 @@
 
           <div class="flex justify-center m-4 text-sm">
             <p>
-              <span class="text-gray-300">You already have an account</span>
-              <span class="text-gray-100 font-bold">
+              <span class="text-gray-500">You already have an account</span>
+              <span class="text-gray-700 font-bold">
                 <NuxtLink to="/login">Click here!</NuxtLink>
               </span>
             </p>
@@ -216,7 +161,7 @@ export default {
   data() {
     return {
       user: {
-        firstname: '',
+        firsname: '',
         lastname: '',
         username: '',
         setPassword: '',
@@ -233,7 +178,7 @@ export default {
           return
         }
         this.$store.dispatch('register/registerApi', this.user).then(() => {
-          this.$router.push('/')
+          this.$router.push('/login')
         })
       })
     },

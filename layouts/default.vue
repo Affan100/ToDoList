@@ -18,7 +18,7 @@ export default {
     async mounted() {
         await this.$store.dispatch("login/setToken")
         this.$axios.setToken(this.getToken, 'Bearer')
-        console.log("Token",this.getToken);
+        // console.log("Token",this.getToken);
     },
 
 }

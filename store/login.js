@@ -1,6 +1,3 @@
-// const accessToken = localStorage.getItem("accessToken");
-// console.log(accessToken)
-
 export const state = () => ({
     is_access: false,
     username: {
@@ -21,14 +18,15 @@ export const mutations = {
 
     SET_TOKEN(state, data) {
         state.access_token = data;
-        console.log(data);
+        // console.log(data);
     },
 
 };
 export const actions = {
     async loginApi(state, payload) {
         await this.$axios
-            .$post("/api/login", {
+            // add
+            .$post("http://localhost:8080/api/login", {
                 username: payload.username,
                 password: payload.password
             }, { headers: { "Content-Type": "application/json" } })
@@ -51,11 +49,7 @@ export const actions = {
     async getUserNameFromApi(state, payload) {
         // const accessToken = localStorage.getItem("accessToken");
         await this.$axios
-            .$get("/api/account", {
-                // headers: {
-                //     Authorization: `Bearer ${accessToken}`
-                // }
-            })
+            .$get("http://localhost:8080/api/account", {})
             .then(res => {
                 state.commit("Set_UserName_From_API", res);
                 // console.log(res);

@@ -53,13 +53,14 @@ export const mutations = {
 export const actions = {
     getToDoListFromAPI(state) {
         this.$axios
-            .$get(`/api/dashboard/14`, {
+            .$get(`http://localhost:8080/api/dashboard/14`, {
                 headers: {
                     Authorization: `Bearer aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa`
                 }
             })
             .then(res => {
                 state.commit("setTaskFromAPI", res.data);
+                // console.log("res.data", res.data);
             })
     },
 
@@ -73,7 +74,7 @@ export const actions = {
         });
 
         this.$axios
-            .$post(`/api/dashboard/14`, {
+            .$post(`http://localhost:8080/api/dashboard/14`, {
                 data: newTodo
             }, {
                 headers: {
@@ -85,7 +86,7 @@ export const actions = {
             })
     },
     async deleteToDoListFromAPI(state, payload) {
-        await this.$axios.$delete("api/dashboard/" + payload, {
+        await this.$axios.$delete("http://localhost:8080/api/dashboard/" + payload, {
             headers: {
                 Authorization: `Bearer aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa`
             }

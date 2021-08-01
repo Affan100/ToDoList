@@ -5,7 +5,7 @@ export const mutations = {};
 
 export const actions = {
     registerApi(state, payload) {
-        this.$axios.$post("/api/register", {
+        this.$axios.$post("http://localhost:8080/api/register", {
             username: payload.username,
             password: payload.setPassword,
             firsname: payload.firsname,

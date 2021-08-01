@@ -51,6 +51,7 @@
                 type="password"
                 placeholder="Password"
                 class="w-10/12 md-2 shadow px-5 p-2"
+                @keypress.enter="login()"
               />
             </div>
             <div
@@ -92,16 +93,6 @@
             </p>
           </div>
         </ValidationObserver>
-
-        <!-- <div class="flex justify-center">
-                <input v-model="user.username" type="text" placeholder="Username" class="w-10/12 ">
-            </div>
-            <div class="flex justify-center">
-                <input v-model="user.password" type="password" placeholder="Password" class="w-10/12 ">
-            </div>
-            <button type="submit" @click="login()">
-                Login
-            </button> -->
       </div>
     </div>
   </div>
@@ -109,7 +100,7 @@
 
 <script>
 export default {
-  components: {},
+  middleware: 'unAuth',
   data() {
     return {
       user: {
@@ -125,14 +116,14 @@ export default {
     },
   },
   methods: {
-    login() {
-      this.$refs.form.validate().then((success) => {
+    async login() {
+     await this.$refs.form.validate().then((success) => {
         if (!success) {
           alert('Username or Password Incorrect')
           return
         }
         this.$store.dispatch('login/loginApi', this.user).then(() => {
-          this.$router.push('/')
+          this.$router.go('/')
         })
       })
     },
